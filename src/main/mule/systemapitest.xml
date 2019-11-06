@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="599ed751-6cc3-41ae-8e14-b93427c9d3c8" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<api-gateway:autodiscovery apiId="15854980" doc:name="API Autodiscovery" doc:id="f92c5083-bf0c-427b-8be6-8f67c06b0032" flowRef="systemapitestFlow" />
+	<http:request-config name="HTTP_Request_config" doc:name="HTTP Request configuration" doc:id="004cc972-0377-4948-bf70-0a6631668216">
+		<http:request-connection host="jsonplaceholder.typicode.com" protocol="HTTPS"/>
+	</http:request-config>
+	<flow name="systemapitestFlow" doc:id="bb21f53f-0c82-4121-8f0f-5b128e5905b6" >
+		<http:listener doc:name="Listener" doc:id="5e5975e4-9d55-4d16-aad7-efc690dd91fc" config-ref="HTTP_Listener_config" path="users"/>
+		<http:request method="GET" doc:name="Request" doc:id="d5ae0a87-f3a0-488e-8d18-4f87fe45f050" path="/users" config-ref="HTTP_Request_config"/>
+	</flow>
+</mule>
